@@ -7,10 +7,11 @@ const express = require('express'),
   Leave = require('./models/Leave'),
   Report = require('./models/Report'),
   Update = require('./models/Update');
-
-app.use(express.static(path.join(__dirname, './client/build')));
-
+const path = require('path');
 require('dotenv').config();
+
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
 // Routes
 const users = require('./routes/api/users'),
   empRoutes = require('./routes/employee/employee'),
@@ -55,5 +56,9 @@ app.use('/api/employee', empRoutes);
 app.use('/api/manager', managerRoutes);
 
 const port = process.env.PORT || 5000;
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
 
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
