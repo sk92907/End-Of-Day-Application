@@ -8,6 +8,8 @@ const express = require('express'),
   Report = require('./models/Report'),
   Update = require('./models/Update');
 
+app.use(express.static(path.join(__dirname, './client/build')));
+
 require('dotenv').config();
 // Routes
 const users = require('./routes/api/users'),
